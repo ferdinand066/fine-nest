@@ -1,4 +1,4 @@
-import { ConsoleLogger, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './user.model';
 import { Model } from 'mongoose';
@@ -10,9 +10,9 @@ export class UsersService {
 
     constructor(@InjectModel('User') private readonly userModel: Model<User>) { }
 
-    async insertUser(email: string, password: string) {
+    async insertUser(name: string, email: string, password: string) {
         const hash = this.bcrypt.hashSync(password, 10);
-        const user = new this.userModel({email, password : hash, imagePath : null});
+        const user = new this.userModel({name, email, password : hash, imagePath : null});
         return await user.save() as User;
     }
 

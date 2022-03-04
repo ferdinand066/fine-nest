@@ -8,7 +8,7 @@ import {
     Delete,
     UseGuards,
 } from '@nestjs/common';
-import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 import { UsersService } from './users.service';
 
@@ -18,17 +18,19 @@ export class UsersController {
 
     @Post()
     async insertUser(
+        @Body('name') name: string,
         @Body('email') email: string,
         @Body('password') password: string
     ) {
         const user = await this.usersService.insertUser(
+            name,
             email,
             password
         );
         return { user: user };
     }
 
-    @UseGuards(AuthenticatedGuard)
+    @UseGuards(JwtAuthGuard)
     @Get()
     async getAllUsers() {
         const users = await this.usersService.getAllUsers();
