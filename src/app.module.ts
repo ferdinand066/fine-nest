@@ -7,7 +7,13 @@ import { AuthModule } from './auth/auth.module';
 import 'dotenv/config';
 
 @Module({
-  imports: [UsersModule, AuthModule, MongooseModule.forRoot(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ypddr.mongodb.net/fine?retryWrites=true&w=majority`)],
+  imports: [
+    UsersModule,
+    AuthModule,
+    MongooseModule.forRoot(
+      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ypddr.mongodb.net/fine?retryWrites=true&w=majority`,
+    ),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

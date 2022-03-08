@@ -12,7 +12,7 @@ import 'dotenv/config';
     imports: [UsersModule, PassportModule, JwtModule.register({
         secret: process.env.JWT_SECRET,
         signOptions: {
-            expiresIn: '60s'
+            expiresIn: '1d'
         },
     })],
     providers: [AuthService, LocalStrategy, JwtStrategy],
