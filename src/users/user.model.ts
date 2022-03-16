@@ -1,3 +1,4 @@
+import { Schema } from "@nestjs/mongoose";
 import mongoose from "mongoose";
 
 export const UserSchema = new mongoose.Schema({
@@ -6,6 +7,8 @@ export const UserSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   imagePath: { type: String, required: false },
+  friendList: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
+  requestList: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
 });
 
 export interface User {
@@ -15,4 +18,6 @@ export interface User {
   email: string,
   password: string,
   imagePath: string,
+  friendList: User[],
+  requestList: User[]
 }

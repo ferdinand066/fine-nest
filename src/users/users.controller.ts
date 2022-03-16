@@ -7,6 +7,7 @@ import {
   Patch,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
@@ -29,10 +30,17 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getAllUsers() {
-    const users = await this.usersService.getAllUsers();
+  async getUsersByUsername(@Query('id') id : string, @Query('username') username : string) {
+    const users = await this.usersService.getUsersByUsername(id, username);
     return { users: users };
   }
+
+  @Get('seeds')
+  async seedUsers(){
+    const users = await this.usersService.seedUsers();
+    return { users: users };
+  }
+
 
   // @Get(':id')
   // getProduct(@Param('id') prodId: string) {
